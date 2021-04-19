@@ -72,6 +72,7 @@ public class AccountController {
 			model.addAttribute("att3", "パスワードと確認用パスワードが一致しません");
 			return "createAccount";
        }
+
         
         userInfo.setPassword(password);
         usersService.registUser(userInfo);
