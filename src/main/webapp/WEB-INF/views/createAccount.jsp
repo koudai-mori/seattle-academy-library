@@ -14,6 +14,7 @@
     <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
     <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet" type="text/css">
 </head>
+
 <body>
     <div class="wrapper">
         <main>
@@ -26,12 +27,18 @@
                     <form method="post" action="createAccount">
                         <div class="title">アカウントの作成</div>
                         <label class="label">メールアドレス</label>
+                        <c:if test="${!empty att1}">
+                        <div class = "error">${att1}</div>
+                        </c:if>
                         <input type="email" class="input" id="email" name="email" autocomplete="off" required>
                         <label class="label">パスワード</label>
                         <input type="password" class="input" id="password" name="password" required>
                         <label class="label">パスワード（確認用）</label>
                         <input type="password" class="input" id="passwordForCheck" name="passwordForCheck" required>
                         <input type="submit" class="button primary" value="作成する" >
+                        <c:if test="${!empty att3}">
+                        <div class = "error">${att3}</div>
+                        </c:if>
                     </form>
                 </div>
                 <div class="authorization_navi">
@@ -40,7 +47,7 @@
 						<a class="authorization_link marker" href="javascript:void(0)" onclick="this.parentNode.submit()">ログイン</a>
 					</form>
                 </div>
-            </div>
+             </div> 
         </main>
         <footer>
             <div class="copyright">
