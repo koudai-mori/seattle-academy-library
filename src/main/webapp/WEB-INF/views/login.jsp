@@ -35,7 +35,6 @@
                          <c:if test="${!empty errorMessage}">
 							 <div class="error">${errorMessage}</div>
 						</c:if>
-
                     </form>
                 </div>
                 <div class="authorization_navi">
