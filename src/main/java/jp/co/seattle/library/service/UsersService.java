@@ -46,17 +46,12 @@ public class UsersService {
     public UserInfo selectUserInfo(String email, String password) {
         // TODO SQL生成
 		String sql = "select id,email,password from users where email='" + email + "'and password='" + password + "'";
-
 		try {
-        UserInfo selectedUserInfo = jdbcTemplate.queryForObject(sql, new UserCountRowMapper());
-        return selectedUserInfo;
-	}
-        //例外処理、データがないとき戻り値を設定してログインに返す
-
-	catch (EmptyResultDataAccessException e) {
-		return null;
-        }
-        
+			UserInfo selectedUserInfo = jdbcTemplate.queryForObject(sql, new UserCountRowMapper());
+			return selectedUserInfo;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
     }
 
 }
