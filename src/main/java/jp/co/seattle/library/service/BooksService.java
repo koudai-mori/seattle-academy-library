@@ -33,7 +33,7 @@ public class BooksService {
 
         // TODO 取得したい情報を取得するようにSQLを修正
         List<BookInfo> getedBookList = jdbcTemplate.query(
-				"select id,title,publisher,publish_date,thumbnail_url,author from books order by title asc",
+                "select id,title,publisher,publish_date,thumbnail_url,author from books order by title asc",
                 new BookInfoRowMapper());
 
         return getedBookList;
@@ -73,5 +73,18 @@ public class BooksService {
                 + "sysdate())";
 
         jdbcTemplate.update(sql);
+    }
+
+    //delete books with SQL
+    /**
+     * 書籍を削除する
+     * 
+     * @param bookId　書籍情報
+     */
+    public void deleteBook(int bookId) {
+        String sql = "DELETE FROM books WHERE id='" + bookId + "';";
+        jdbcTemplate.update(sql);
+
+        //おそらくIDを指定できていない、そのためDBの方のデータを消せていない
     }
 }
