@@ -39,7 +39,7 @@ public class DeleteBookController {
             Locale locale,
             @RequestParam("bookId") Integer bookId,
             Model model) {
-
+        logger.info("Welcome delete! The client locale is {}.", locale);
 
         booksService.deleteBook(bookId);
         //sequelproでも消えるようになりました、残りの本を出現させる
