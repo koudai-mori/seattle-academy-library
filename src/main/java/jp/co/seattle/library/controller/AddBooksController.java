@@ -57,7 +57,7 @@ public class AddBooksController {
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
-            @RequestParam("publish_date") String publish_date,
+            @RequestParam("publish_date") String publishDate,
             @RequestParam("thumbnail") MultipartFile file,
             @RequestParam("isbn") String isbn,
             @RequestParam("description") String description,
@@ -70,7 +70,7 @@ public class AddBooksController {
         bookInfo.setTitle(title);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
-        bookInfo.setPublishdate(publish_date);
+        bookInfo.setPublishDate(publishDate);
         bookInfo.setIsbn(isbn);
         bookInfo.setDescription(description);
 
@@ -113,7 +113,7 @@ public class AddBooksController {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd");
             sdf.setLenient(false);
-            sdf.parse(publish_date);
+            sdf.parse(publishDate);
            
         } catch (ParseException pe) {
             check = true;

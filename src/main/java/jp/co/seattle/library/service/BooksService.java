@@ -66,7 +66,7 @@ public class BooksService {
     public void registBook(BookDetailsInfo bookInfo) {
         String sql = "INSERT INTO books (title, author,publisher,publish_date,thumbnail_name,thumbnail_url,reg_date,upd_date,isbn,description) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
-                + bookInfo.getPublishdate()+"','"
+                + bookInfo.getPublishDate() + "','"
                 + bookInfo.getThumbnailName() + "','"
                 + bookInfo.getThumbnailUrl() + "',"
                 + "sysdate(),"
