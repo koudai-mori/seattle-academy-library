@@ -1,5 +1,7 @@
 package jp.co.seattle.library.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -42,6 +44,9 @@ public class AddBooksController {
      * @param title 書籍名
      * @param author 著者名
      * @param publisher 出版社
+     * @param publishdate 出版日
+     * @param isbn ISBN
+     * @param description 説明
      * @param file サムネイルファイル
      * @param model モデル
      * @return 遷移先画面
@@ -52,7 +57,11 @@ public class AddBooksController {
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
+            @RequestParam("publish_date") String publishDate,
             @RequestParam("thumbnail") MultipartFile file,
+            @RequestParam("isbn") String isbn,
+            @RequestParam("description") String description,
+
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
@@ -61,6 +70,9 @@ public class AddBooksController {
         bookInfo.setTitle(title);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
+        bookInfo.setPublishDate(publishDate);
+        bookInfo.setIsbn(isbn);
+        bookInfo.setDescription(description);
 
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
@@ -85,11 +97,45 @@ public class AddBooksController {
         }
 
         // 書籍情報を新規登録する
-        booksService.registBook(bookInfo);
 
+        //ヴァリデーションチェック
+        //後ここだけ
+        boolean isValidIsbn = isbn.matches("^[0-9]+$");
+        boolean check = false;
+        //↑１行目でisbnが数字かどうかのチェック、
+        StringBuilder sb = new StringBuilder(isbn);
+        if (!isValidIsbn||sb.length() != 10 && sb.length() != 13 ) {
+            check = true;
+            model.addAttribute("errorMsgIsbn", "ISBNの桁数または半角英数が正しくありません");
+            
+        }
+        //日付のチェック
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd");
+            sdf.setLenient(false);
+            sdf.parse(publishDate);
+           
+        } catch (ParseException pe) {
+            check = true;
+            model.addAttribute("errorMsgDate", "出版日は半角英数のYYYYMMDD形式で入力してください");
+        }
+        if (check) {
+            return "addBook";
+        }
+        booksService.registBook(bookInfo);
+        
+        
         model.addAttribute("resultMessage", "登録完了");
 
         // TODO 登録した書籍の詳細情報を表示するように実装
+        int bookDetailsInfo = booksService.latestID();
+        //↑IDもらったお
+        BookDetailsInfo details = booksService.getBookInfo(bookDetailsInfo);
+        
+        model.addAttribute("bookDetailsInfo", details);
+                
+        //Bookdetaiklsinfoから取得して出力？
+        //detail.jspを使うのでは
         //  詳細画面に遷移する
         return "details";
     }

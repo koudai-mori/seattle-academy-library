@@ -64,16 +64,25 @@ public class BooksService {
      * @param bookInfo 書籍情報
      */
     public void registBook(BookDetailsInfo bookInfo) {
-
-        String sql = "INSERT INTO books (title, author,publisher,thumbnail_name,thumbnail_url,reg_date,upd_date) VALUES ('"
+        String sql = "INSERT INTO books (title, author,publisher,publish_date,thumbnail_name,thumbnail_url,reg_date,upd_date,isbn,description) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
+                + bookInfo.getPublishDate() + "','"
                 + bookInfo.getThumbnailName() + "','"
                 + bookInfo.getThumbnailUrl() + "',"
                 + "sysdate(),"
-                + "sysdate())";
-
+                + "sysdate(),'"
+                + bookInfo.getIsbn()+"','"
+                + bookInfo.getDescription() + ";')";
         jdbcTemplate.update(sql);
+        }
+
+        public int latestID() {
+        String sql = "SELECT Max(ID) FROM books";
+        int bookMaxId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return bookMaxId;
     }
+
+
 
     //delete books with SQL
     /**
