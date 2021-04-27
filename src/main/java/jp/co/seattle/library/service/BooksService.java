@@ -18,6 +18,14 @@ import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
  * 
  *  booksテーブルに関する処理を実装する
  */
+/**
+ * @author user
+ *
+ */
+/**
+ * @author user
+ *
+ */
 @Service
 public class BooksService {
     final static Logger logger = LoggerFactory.getLogger(BooksService.class);
@@ -95,5 +103,20 @@ public class BooksService {
         jdbcTemplate.update(sql);
 
         //おそらくIDを指定できていない、そのためDBの方のデータを消せていない
+    }
+
+    public void editbook(BookDetailsInfo bookInfo) {
+        String sql = "UPDATE books SET title ='" + bookInfo.getTitle() +
+                "',author='" + bookInfo.getAuthor() +
+                "',publisher='" + bookInfo.getPublisher() +
+                "',publish_date='" + bookInfo.getPublishDate() +
+                "',thumbnail_url='" + bookInfo.getThumbnailUrl() +
+                "',thumbnail_name='" + bookInfo.getThumbnailName() +
+                "',isbn='" + bookInfo.getIsbn() +
+                 "',description ='" +bookInfo.getDescription()+
+                "',upd_date =" + "sysdate()" +
+                "WHERE id ='" + bookInfo.getBookId() + "';";
+        //108行目の中身は仮、ここの引数int bookIdじゃね？               
+        jdbcTemplate.update(sql);
     }
 }
