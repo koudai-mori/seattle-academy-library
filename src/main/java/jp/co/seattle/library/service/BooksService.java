@@ -23,7 +23,7 @@ import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
  *
  */
 /**
- * @author user
+ 
  *
  */
 @Service
