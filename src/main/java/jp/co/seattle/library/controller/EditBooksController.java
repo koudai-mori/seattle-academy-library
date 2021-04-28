@@ -48,8 +48,6 @@ public class EditBooksController {
             Model model){
         logger.info("Welcome edit! The client locale is {}.", locale);
 
-        booksService.getBookInfo(bookId);
-
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
         return "editBook";
     }
