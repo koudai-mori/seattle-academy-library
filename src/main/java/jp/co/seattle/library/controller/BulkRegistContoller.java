@@ -41,27 +41,24 @@ public class BulkRegistContoller {
 
     @RequestMapping(value = "/bulkRegist", method = RequestMethod.GET) //value＝actionで指定したパラメータ
     //RequestParamでname属性を取得
-    public String login(Model model) {
+    public String bulk(Model model) {
         return "bulkRegist";
         }
 
     /**
-     * 書籍情報を一括登録する
+     *書籍情報を一括登録する
      * @param locale ロケール情報
-     * @param title 書籍名
-     * @param author 著者名
-     * @param publisher 出版社
-     * @param publishdate 出版日
-     * @param isbn ISBN
-     * @param description 説明
-     * @param file サムネイルファイル
+     * @param bulk csvfile
      * @param model モデル
-     * @return 遷移先画面
+     * @return 一括登録画面
      * @throws IOException 
+     * @throws ParseException
+     * @throes FileNotFoundException
+     * 
      */
     @Transactional
     @RequestMapping (value = "/allRegist", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
-    public String insertBook(Locale locale,
+    public String registbook(Locale locale,
             @RequestParam("bulk") MultipartFile bulk,
             Model model) throws IOException {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
