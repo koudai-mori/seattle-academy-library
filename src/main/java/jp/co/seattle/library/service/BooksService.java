@@ -105,6 +105,12 @@ public class BooksService {
         //おそらくIDを指定できていない、そのためDBの方のデータを消せていない
     }
 
+    /**
+     * 書籍を編集するメソッド
+     * 
+     *  
+     */
+
     public void editbook(BookDetailsInfo bookInfo) {
         String sql = "UPDATE books SET title ='" + bookInfo.getTitle() +
                 "',author='" + bookInfo.getAuthor() +
@@ -116,7 +122,7 @@ public class BooksService {
                  "',description ='" +bookInfo.getDescription()+
                 "',upd_date =" + "sysdate()" +
                 "WHERE id ='" + bookInfo.getBookId() + "';";
-        //108行目の中身は仮、ここの引数int bookIdじゃね？               
+
         jdbcTemplate.update(sql);
     }
 }
