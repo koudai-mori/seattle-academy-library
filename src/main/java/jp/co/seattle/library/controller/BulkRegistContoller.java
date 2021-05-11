@@ -92,7 +92,6 @@ public class BulkRegistContoller {
                 } catch (ParseException pe) {
                     errorList.add(bookInfos.size() + "行目の出版日は半角英数のYYYYMMDD形式で入力してください");
                 }
-                //どっかでファイルのクローズしなあかん    
                 //while分の終わり
                 }
                 br.close();
