@@ -100,12 +100,9 @@ public class AddBooksController {
 
         //ヴァリデーションチェック
         //後ここだけ
-        boolean isValidIsbn = isbn.matches("^[0-9]+$");
         boolean check = false;
-        //↑１行目でisbnが数字かどうかのチェック、
-        StringBuilder sb = new StringBuilder(isbn);
-        if (!isValidIsbn||sb.length() != 10 && sb.length() != 13 ) {
-            check = true;
+        boolean isValidIsbn = isbn.matches("[0-9]{10}||[0-9]{13}");
+        if (!isValidIsbn) {
             model.addAttribute("errorMsgIsbn", "ISBNの桁数または半角英数が正しくありません");
             
         }
@@ -133,6 +130,7 @@ public class AddBooksController {
         BookDetailsInfo details = booksService.getBookInfo(bookDetailsInfo);
         
         model.addAttribute("bookDetailsInfo", details);
+        model.addAttribute("okRent", "貸し出し可");
                 
         //Bookdetaiklsinfoから取得して出力？
         //detail.jspを使うのでは

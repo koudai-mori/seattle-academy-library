@@ -145,6 +145,7 @@ public class EditBooksController {
         //↑IDもらったお
         BookDetailsInfo newBookDetailsInfo = booksService.getBookInfo(bookId);
         model.addAttribute("bookDetailsInfo", newBookDetailsInfo);
+        model.addAttribute("okRent", "貸し出し可");
         
         return "details";
     }

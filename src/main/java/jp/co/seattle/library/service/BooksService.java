@@ -26,6 +26,10 @@ import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
  
  *
  */
+/**
+ * @author user
+ *
+ */
 @Service
 public class BooksService {
     final static Logger logger = LoggerFactory.getLogger(BooksService.class);
@@ -119,4 +123,36 @@ public class BooksService {
         //108行目の中身は仮、ここの引数int bookIdじゃね？               
         jdbcTemplate.update(sql);
     }
+
+    /**
+     * 書籍を借りる
+     * 
+     * @param bookId　書籍情報
+     */
+    public void rentBook(int bookId) {
+        String sql = "INSERT INTO rentBooks(id) VALUES ("
+                + bookId + ");";
+        jdbcTemplate.update(sql);
+    }
+
+    /**
+     * 本が貸し出し中か調べる
+     * @param bookId
+     * @return　結果をリターンしてあげる
+     */
+    public int rentCheck(int bookId) {
+        String sql = "SELECT COUNT(*)FROM rentBooks where id =" + bookId + ";";
+        int rentId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return rentId;
+    }
+
+    /**
+     * 書籍を返却する（MySQLからデータを消す）
+     * @param bookId
+     */
+    public void returnBook(int bookId) {
+        String sql = "DELETE FROM rentBooks WHERE id='" + bookId + "';";
+        jdbcTemplate.update(sql);
+    }
+
 }
