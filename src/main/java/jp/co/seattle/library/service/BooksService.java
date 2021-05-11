@@ -45,7 +45,7 @@ public class BooksService {
 
         // TODO 取得したい情報を取得するようにSQLを修正
         List<BookInfo> getedBookList = jdbcTemplate.query(
-                "select id,title,publisher,publish_date,thumbnail_url,author from books order by title asc",
+                "select bookId,title,publisher,publish_date,thumbnail_url,author from books order by title asc",
                 new BookInfoRowMapper());
 
         return getedBookList;
@@ -60,7 +60,7 @@ public class BooksService {
     public BookDetailsInfo getBookInfo(int bookId) {
 
         // JSPに渡すデータを設定する
-        String sql = "SELECT * FROM books where id ="
+        String sql = "SELECT * FROM books where bookId ="
                 + bookId;
 
         BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
@@ -89,7 +89,7 @@ public class BooksService {
         }
 
         public int latestID() {
-        String sql = "SELECT Max(ID) FROM books";
+            String sql = "SELECT Max(bookId) FROM books";
         int bookMaxId = jdbcTemplate.queryForObject(sql, Integer.class);
         return bookMaxId;
     }
@@ -103,7 +103,7 @@ public class BooksService {
      * @param bookId　書籍情報
      */
     public void deleteBook(int bookId) {
-        String sql = "DELETE FROM books WHERE id='" + bookId + "';";
+        String sql = "DELETE FROM books WHERE bookId='" + bookId + "';";
         jdbcTemplate.update(sql);
 
         //おそらくIDを指定できていない、そのためDBの方のデータを消せていない
@@ -119,7 +119,7 @@ public class BooksService {
                 "',isbn='" + bookInfo.getIsbn() +
                  "',description ='" +bookInfo.getDescription()+
                 "',upd_date =" + "sysdate()" +
-                "WHERE id ='" + bookInfo.getBookId() + "';";
+                "WHERE bookId ='" + bookInfo.getBookId() + "';";
         //108行目の中身は仮、ここの引数int bookIdじゃね？               
         jdbcTemplate.update(sql);
     }
@@ -130,7 +130,7 @@ public class BooksService {
      * @param bookId　書籍情報
      */
     public void rentBook(int bookId) {
-        String sql = "INSERT INTO rentBooks(id) VALUES ("
+        String sql = "INSERT INTO rentBooks(bookId) VALUES ("
                 + bookId + ");";
         jdbcTemplate.update(sql);
     }
@@ -141,7 +141,7 @@ public class BooksService {
      * @return　結果をリターンしてあげる
      */
     public int rentCheck(int bookId) {
-        String sql = "SELECT COUNT(*)FROM rentBooks where id =" + bookId + ";";
+        String sql = "SELECT COUNT(*)FROM rentBooks where bookId =" + bookId + ";";
         int rentId = jdbcTemplate.queryForObject(sql, Integer.class);
         return rentId;
     }
@@ -151,7 +151,7 @@ public class BooksService {
      * @param bookId
      */
     public void returnBook(int bookId) {
-        String sql = "DELETE FROM rentBooks WHERE id='" + bookId + "';";
+        String sql = "DELETE FROM rentBooks WHERE bookId='" + bookId + "';";
         jdbcTemplate.update(sql);
     }
 
