@@ -42,6 +42,7 @@ public class DeleteBookController {
         logger.info("Welcome delete! The client locale is {}.", locale);
 
         booksService.deleteBook(bookId);
+
         //sequelproでも消えるようになりました、残りの本を出現させる
         model.addAttribute("bookList", booksService.getBookList());
         return "home";
