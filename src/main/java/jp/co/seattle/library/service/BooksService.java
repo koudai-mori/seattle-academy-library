@@ -76,7 +76,7 @@ public class BooksService {
                 + "sysdate(),"
                 + "sysdate(),'"
                 + bookInfo.getIsbn()+"','"
-                + bookInfo.getDescription() + ";')";
+                + bookInfo.getDescription() + "');";
         jdbcTemplate.update(sql);
         }
 
@@ -119,7 +119,7 @@ public class BooksService {
                 "',upd_date =" + "sysdate()" +
                 "WHERE bookId ='" + bookInfo.getBookId() + "';";             
 
-        jdbcTemplate.update(sql);
+
     }
 
     /**
@@ -151,6 +151,11 @@ public class BooksService {
     public void returnBook(int bookId) {
         String sql = "DELETE FROM rentBooks WHERE bookId='" + bookId + "';";
         jdbcTemplate.update(sql);
+    }
+
+    public void selectUserInfo(int userId) {
+        String sql = "SELECT FROM users WHERE id='" + userId + "';";
+        int userid = jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
 }
