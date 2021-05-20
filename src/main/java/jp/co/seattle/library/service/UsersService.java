@@ -54,4 +54,25 @@ public class UsersService {
 		}
     }
 
+    public String[] pickUpUserInfo(int userId) {
+        String sqlEmail = "select email from users where id='" + userId + "';";
+        String currentEmail = jdbcTemplate.queryForObject(sqlEmail, String.class);
+        String sqlPass = "select password from users where id='" + userId + "';";
+        String currentPass = jdbcTemplate.queryForObject(sqlPass, String.class);
+        String[] userInfomation = { currentEmail, currentPass };
+        return userInfomation;
+    }
+    /**
+     * アカウント情報を更新する
+     * @param userInfo
+     */
+    public void userInfoUpdate(UserInfo userInfo) {
+        String sql = "UPDATE users SET email='" + userInfo.getEmail() +
+                "',password='" + userInfo.getPassword() +
+                "' WHERE id ='" + userInfo.getUserId() + "';";
+
+        jdbcTemplate.update(sql);
+
+    }
+
 }

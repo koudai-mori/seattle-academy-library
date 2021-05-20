@@ -97,7 +97,7 @@
                             <input type="text" name="publish_date" value="${bookInfo.publishdate}">
                         </c:if>
                         <c:if test="${empty bookInfo}">
-                            <input type="text" name="publish_date">
+                            <input type="text" name="publish_date" placeholder="YYYYMMDD">
                         </c:if>
                     </div>
                     <div>

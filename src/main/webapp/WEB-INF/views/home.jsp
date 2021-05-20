@@ -21,6 +21,7 @@
             <ul>
                 <li><a href="<%= request.getContextPath()%>/home" class="menu">Home</a></li>
                 <li><a href="<%= request.getContextPath()%>/">ログアウト</a></li>
+                <li><a href="<%= request.getContextPath()%>/account" class="account">Account</a></li>
             </ul>
         </div>
     </header>
@@ -28,6 +29,7 @@
         <h1>Home</h1>
         <a href="<%= request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a>
         <a href="<%= request.getContextPath()%>/bulkRegist" class="btn_bulk_book">一括登録</a>
+        
 
         <div class="content_body">
             <c:if test="${!empty resultMessage}">

@@ -95,6 +95,10 @@ public class AddBooksController {
                 return "addBook";
             }
         }
+        //必須項目が空だった場合、通らないようにする
+        if (title.isEmpty() || author.isEmpty() || publisher.isEmpty()) {
+
+        }
 
         // 書籍情報を新規登録する
 
