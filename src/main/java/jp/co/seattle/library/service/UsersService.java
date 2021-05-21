@@ -54,6 +54,11 @@ public class UsersService {
 		}
     }
 
+    /**
+     * userIdを元に登録されているemailとpasswordをMySQLから取得し配列に格納
+     * @param userId
+     * @return userInfomation
+     */
     public String[] pickUpUserInfo(int userId) {
         String sqlEmail = "select email from users where id='" + userId + "';";
         String currentEmail = jdbcTemplate.queryForObject(sqlEmail, String.class);
@@ -69,7 +74,8 @@ public class UsersService {
     public void userInfoUpdate(UserInfo userInfo) {
         String sql = "UPDATE users SET email='" + userInfo.getEmail() +
                 "',password='" + userInfo.getPassword() +
-                "' WHERE id ='" + userInfo.getUserId() + "';";
+                "',upd_date = " + "sysdate()" +
+                " WHERE id ='" + userInfo.getUserId() + "';";
 
         jdbcTemplate.update(sql);
 
