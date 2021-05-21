@@ -56,8 +56,8 @@ public class UsersService {
 
     /**
      * userIdを元に登録されているemailとpasswordをMySQLから取得し配列に格納
-     * @param userId
-     * @return userInfomation
+     * @param userId ユーザーID
+     * @return userInfomation ユーザー情報
      */
     public String[] pickUpUserInfo(int userId) {
         String sqlEmail = "select email from users where id='" + userId + "';";
@@ -67,9 +67,10 @@ public class UsersService {
         String[] userInfomation = { currentEmail, currentPass };
         return userInfomation;
     }
+    
     /**
      * アカウント情報を更新する
-     * @param userInfo
+     * @param userInfo ユーザー情報
      */
     public void userInfoUpdate(UserInfo userInfo) {
         String sql = "UPDATE users SET email='" + userInfo.getEmail() +

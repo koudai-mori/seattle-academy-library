@@ -37,10 +37,10 @@ public class EditAccountController {
 
     /**
      * アカウント認証画面に遷移
-     * @param email
-     * @param password
+     * @param email メールアドレス
+     * @param password パスワード
      * @param model
-     * @return accountCheck
+     * @return accountCheck アカウント認証画面
      */
     @RequestMapping(value = "/accountCheck", method = RequestMethod.POST)
     public String transitionEditAccount(
@@ -66,12 +66,12 @@ public class EditAccountController {
     /**
      * アカウント修正画面に遷移
      * アカウント修正
-     * @param userId
-     * @param email
-     * @param password
-     * @param passwordForCheck
+     * @param userId ユーザーID
+     * @param email メールアドレス
+     * @param password パスワード
+     * @param passwordForCheck 確認用パスワード
      * @param model
-     * @return editAccount
+     * @return editAccount アカウント修正画面
      */
     @RequestMapping(value = "/editAccount", method = RequestMethod.POST)
     public String editAccount(
