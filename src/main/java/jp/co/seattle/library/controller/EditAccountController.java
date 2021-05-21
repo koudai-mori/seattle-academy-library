@@ -35,6 +35,13 @@ public class EditAccountController {
         return "accountCheck";
     }
 
+    /**
+     * アカウント認証画面に遷移
+     * @param email メールアドレス
+     * @param password パスワード
+     * @param model
+     * @return accountCheck アカウント認証画面
+     */
     @RequestMapping(value = "/accountCheck", method = RequestMethod.POST)
     public String transitionEditAccount(
             @RequestParam("email") String email,
@@ -56,6 +63,16 @@ public class EditAccountController {
     }
 
     //アカウント情報を変更処理
+    /**
+     * アカウント修正画面に遷移
+     * アカウント修正
+     * @param userId ユーザーID
+     * @param email メールアドレス
+     * @param password パスワード
+     * @param passwordForCheck 確認用パスワード
+     * @param model
+     * @return editAccount アカウント修正画面
+     */
     @RequestMapping(value = "/editAccount", method = RequestMethod.POST)
     public String editAccount(
             @RequestParam("userId") int userId,
@@ -64,7 +81,14 @@ public class EditAccountController {
             @RequestParam("passwordForCheck") String passwordForCheck,
             Model model) {
         UserInfo userInfo = new UserInfo();
-        //        UserInfo userInfoo = usersService.selectUserInfo(email, password);
+
+        //バリデーションチェック（両方前回のものと同じではないか）
+        String[] userInfomation = usersService.pickUpUserInfo(userId);
+        if (email.equals(userInfomation[0]) && password.equals(userInfomation[1])) {
+            model.addAttribute("att3", "登録されている情報と同じです");
+            return "editAccount";
+        }
+
         // TODO バリデーションチェック(正しい文字かどうか)、パスワード一致チェック実装
         boolean isValidEmail = email
                 .matches("^([a-zA-Z0-9])+([a-zA-Z0-9\\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\\._-]+)+$");
@@ -78,12 +102,6 @@ public class EditAccountController {
         //パスワードが再パスと一緒かどうか
         if (!(password.equals(passwordForCheck))) {
             model.addAttribute("att3", "パスワードと確認用パスワードが一致しません");
-            return "editAccount";
-        }
-        //バリデーションチェック（両方前回のものと同じではないか）
-        String[] userInfomation = usersService.pickUpUserInfo(userId);
-        if (email.equals(userInfomation[0]) && password.equals(userInfomation[1])) {
-            model.addAttribute("att3", "登録されている情報と同じです");
             return "editAccount";
         }
 
