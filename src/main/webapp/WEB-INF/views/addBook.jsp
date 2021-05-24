@@ -23,9 +23,11 @@
 <script src="resources/js/thumbnail.js"></script>
     
 <script src="resources/js/addBtn.js"></script>
+
+<script src="resources/js/hedder.js" /></script>
 </head>
 <body class="wrapper">
-      
+      <script type="text/javascript" src="hedder.js"></script> 
     <header>
             
         <div class="left">
@@ -35,13 +37,16 @@
         </div>
             
         <div class="right">
-                  
-            <ul>
-                        
-                <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>         
-                <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li>       
-            </ul>
-                
+                   <div class="hamburger">
+                <span></span> <span></span> <span></span> 
+            </div>
+            <nav class="globalMenuSp">
+                <ul class=hambergermenu>
+                    <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+                    <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li> 
+                    <li><a href="<%=request.getContextPath()%>/account" class="account">アカウント修正</a></li>
+                </ul>
+            </nav>
         </div>
           
     </header>

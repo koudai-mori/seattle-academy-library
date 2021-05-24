@@ -41,7 +41,7 @@ public class DetailsController {
 
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
 
-        //貸し出し可能かどうかを判断するメソッド
+        //貸し出し可能かどうかを判断する処理
 
         int rent = booksService.rentCheck(bookId);
         if (rent == 0) {
