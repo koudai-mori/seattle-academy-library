@@ -14,19 +14,27 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
     <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
     <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="resources/js/hedder.js" /></script>
 </head>
 <body>
  <header>
+ <script type="text/javascript" src="hedder.js"></script> 
         <div class="left">
             <img class="mark" src="resources/img/logo.png" />
             <div class="logo">Seattle Library</div>
         </div>
         <div class="right">
-            <ul>
-                <li><a href="<%= request.getContextPath()%>/home" class="menu">Home</a></li>
-                <li><a href="<%= request.getContextPath()%>/">ログアウト</a></li>
-                <li><a href="<%= request.getContextPath()%>/account" class="account">Account</a></li>
-            </ul>
+            <div class="hamburger">
+                <span></span> <span></span> <span></span> 
+            </div>
+            <nav class="globalMenuSp">
+                <ul class=hambergermenu>
+                    <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+                    <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li> 
+                    <li><a href="<%=request.getContextPath()%>/account" class="account">アカウント修正</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
     <div class="wrapper">
