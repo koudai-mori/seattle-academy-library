@@ -19,7 +19,7 @@
     <div class="wrapper">
         <main>
             <div class="authorization_head">
-            	<img class="mark" src="resources/img/logo.png" />
+            	<img class="mark" src="resources/img/logoByMori.png" />
                 <div class="logo">Seattle Library</div>
             </div>
             <div class="authorization">

@@ -132,6 +132,7 @@ img.book_img {
 .book_title {
 	font-size: 16px;
 	text-align: center;
+	color:white;
 }
 
 .book_author {
@@ -150,36 +151,39 @@ a.btn_add_book, a.btn_bulk_book, button.btn_addBook, button.btn_editBook,
 	button.btn_bulkRegist {
 	display: inline-block;
 	font-size: 16px;
-	font-weight: bold;
+	/* font-weight: bold; */
 	line-height: 1.5;
 	text-align: center;
 	padding: 8px 12px;
 	margin: 10px 5px 0;
-	background-color: #7db4e6;
+	background-color: #696969 ;
 	border-bottom: solid 2px rgba(0, 0, 0, .2);
 	box-shadow: inset 0 2px 0 rgba(255, 255, 255, .2), 0 2px 2px
 		rgba(0, 0, 0, .2);
 	color: #fff;
+	border-radius:5px;
+	font-family: 'Mate SC', serif;
 }
 
 a.btn_bulk_book {
-	background-color: #66cdaa;
+	background-color: #A8A8A8;
 }
 
 button.btn_editBook {
-	background-color: #9ec34b;
+	background-color: #999999;
 }
 
 button.btn_deleteBook {
-	background-color: #e94047;
+	background-color: #A54B64;
 }
 
 button.btn_rentBook {
-	background-color: #FF9933;
+	background-color: #D3C965
+	;
 }
 
 button.btn_returnBook {
-	background-color: #7db4e6;
+	background-color: #9FBEC9;
 }
 
 button.btn_bulkRegist {
@@ -204,6 +208,10 @@ a:hover, button:hover {
 	border-bottom: 1px solid #cccccc;
 	margin: 5px 0 15px;
 	font-size: 15px;
+}
+#addBookInput{
+	background-color:white;
+	color:black;
 }
 
 .detail_book_content .content_left {
