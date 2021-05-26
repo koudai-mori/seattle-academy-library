@@ -21,7 +21,7 @@
 <!-- <script type="text/javascript" src="hedder.js"></script>  -->
     <header>
         <div class="left">
-            <img class="mark" src="resources/img/logo.png" />
+            <img class="mark" src="resources/img/logoByMori.png" />
             <div class="logo">Seattle Library</div>
         </div>
         <div class="right">

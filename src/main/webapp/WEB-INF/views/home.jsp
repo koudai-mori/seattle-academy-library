@@ -10,6 +10,9 @@
 <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet" type="text/css">
+ <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+ <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Mate+SC&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="resources/js/hedder.js" /></script>
 </head>
@@ -17,7 +20,7 @@
  <!--     <script type="text/javascript" src="hedder.js"></script>  -->
     <header>
         <div class="left">
-            <img class="mark" src="resources/img/logo.png" />
+            <img class="mark" src="resources/img/logoByMori.png" />
             <div class="logo">Seattle Library</div>
         </div>
         <div class="right">
@@ -64,9 +67,9 @@
                             <ul>
                                 <li class="book_title">${bookInfo.publishDate}</li>
                             </ul>
-                            <ul>
-                                <li class="book_title">${bookInfo.thumbnail}</li>
-                            </ul>
+                           <%-- <ul>
+                                <li class="book_title">${bookInfo.thumbnail}</li> 
+                            </ul> --%>
                         </div>
                     </c:forEach>
                 </div>

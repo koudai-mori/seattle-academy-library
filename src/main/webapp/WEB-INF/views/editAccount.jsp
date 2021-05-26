@@ -18,7 +18,7 @@
 <script type="text/javascript" src="hedder.js"></script> 
     <header>
         <div class="left">
-            <img class="mark" src="resources/img/logo.png" />
+            <img class="mark" src="resources/img/logoByMori.png" />
             <div class="logo">Seattle Library</div>
         </div>
         <div class="right">
@@ -46,11 +46,11 @@
                         <c:if test="${!empty att1}">
                             <div class="error">${att1}</div>
                         </c:if>
-                        <input type="email" class="input" id="email" name="email"  value="${userInfo.email}">
+                        <input type="email" class="input"  name="email"  value="${userInfo.email}">
                         <label class="label">パスワード</label> 
-                        <input type="password" class="input" id="password" name="password" value="${userInfo.password}">
+                        <input type="password" class="input"  name="password" value="${userInfo.password}">
                         <label class="label">パスワード（確認用）</label>
-                        <input type="password" class="input" id="passwordForCheck" name="passwordForCheck" value="${userInfo.password}">
+                        <input type="password" class="input"  name="passwordForCheck" value="${userInfo.password}">
                          <button type="submit" value="${userInfo.userId} " class="account_update_buttom">更新する</button>
                      <!--    <input type="submit" class="button primary" value="更新する"> -->
                         <c:if test="${!empty att3}">

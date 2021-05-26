@@ -14,12 +14,15 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
     <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
     <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200&display=swap" rel="stylesheet">
+    
 </head>
 <body>
     <div class="wrapper">
 
             <div class="authorization_head">
-                <img class="mark" src="resources/img/logo.png" />
+                <img class="mark" src="resources/img/logoByMori.png"/>
                 <div class="logo">Seattle Library</div>
             </div>
             <div class="authorization">
