@@ -16,9 +16,10 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
  <script src="resources/js/lightbox.js" /></script> 
 <script src="resources/js/hedder.js" /></script>
+<script src="resources/js/disabled.js" /></script>
 </head>
 <body class="wrapper">
-<!-- <script type="text/javascript" src="hedder.js"></script>  -->
+
     <header>
         <div class="left">
             <img class="mark" src="resources/img/logoByMori.png" />
@@ -42,8 +43,6 @@
         <div class="content_body detail_book_content">
             <div class="content_left">
                 <span>書籍の画像</span>
-                <%--   <div class="error_msg">${noRent}</div>
-                <div class="error_msg">${okRent}</div> --%>
                 <div class="book_thumnail">
                     <a href="${bookDetailsInfo.thumbnailUrl}" data-lightbox="image-1"> <c:if test="${empty bookDetailsInfo.thumbnailUrl}">
                             <img class="book_noimg" src="resources/img/noImg.png">
@@ -52,8 +51,7 @@
                         </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}">
                     </a>
                 </div>
-                <div >${noRent}</div>
-                <div >${okRent}</div>
+                <div id="status">${RentingStatus}</div>
             </div>
             <div class="content_right">
                 <div>
@@ -83,32 +81,24 @@
             </div>
         </div>
         <div class="edtDelBookBtn_box">
+       <input type="hidden" id="RentingStatus" value="${RentingStatus}" >  
             <form method="post" action="rentBook">
-                <c:if test="${!empty okRent}">
-                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook">借りる</button>
-                </c:if>
-                <c:if test="${!empty noRent}">
-                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook" disabled=disabled>借りる</button>
-                </c:if>
+                
+                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook" >借りる</button>
+                
             </form>
             <form method="post" action="returnBook">
-                <c:if test="${!empty noRent}">
-                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_returnBook">返却</button>
-                </c:if>
-                <c:if test="${!empty okRent}">
-                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_returnBook" disabled=disabled>返却</button>
-                </c:if>
+              
+                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_returnBook" >返却</button>
+          
             </form>
             <form method="post" action="editBook">
                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_editBook">編集</button>
             </form>
             <form method="post" action="deleteBook">
-                <c:if test="${!empty okRent}">
-                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_deleteBook">削除</button>
-                </c:if>
-                <c:if test="${!empty noRent}">
-                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_deleteBook" disabled=disabled>削除</button>
-                </c:if>
+                
+                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_deleteBook" >削除</button>
+             
             </form>
         </div>
     </main>

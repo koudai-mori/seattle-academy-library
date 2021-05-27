@@ -15,6 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Mate+SC&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="resources/js/hedder.js" /></script>
+<script src="resources/js/disabled.js" /></script>
 </head>
 <body class="wrapper">
  <!--     <script type="text/javascript" src="hedder.js"></script>  -->

@@ -45,11 +45,11 @@ public class DetailsController {
 
         int rent = booksService.rentCheck(bookId);
         if (rent == 0) {
-            model.addAttribute("okRent", "貸し出し可");
+            model.addAttribute("RentingStatus", "貸し出し可");
             //ボタンいじりたい
 
         } else {
-            model.addAttribute("noRent", "貸し出し中");
+            model.addAttribute("RentingStatus", "貸し出し中");
             //ボタンいじりたい
 
         }

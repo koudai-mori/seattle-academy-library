@@ -134,7 +134,7 @@ public class AddBooksController {
         BookDetailsInfo details = booksService.getBookInfo(bookDetailsInfo);
         
         model.addAttribute("bookDetailsInfo", details);
-        model.addAttribute("okRent", "貸し出し可");
+        model.addAttribute("RentingStatus", "貸し出し可");
                 
         //Bookdetaiklsinfoから取得して出力？
         //detail.jspを使うのでは

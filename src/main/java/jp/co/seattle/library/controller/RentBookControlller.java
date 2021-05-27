@@ -43,7 +43,7 @@ public class RentBookControlller {
 
         BookDetailsInfo newBookDetailsInfo = booksService.getBookInfo(bookId);
         model.addAttribute("bookDetailsInfo", newBookDetailsInfo);
-        model.addAttribute("noRent", "貸し出し中");
+        model.addAttribute("RentingStatus", "貸し出し中");
 
         return "details";
     }
