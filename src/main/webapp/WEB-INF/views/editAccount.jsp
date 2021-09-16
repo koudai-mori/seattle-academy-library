@@ -30,6 +30,7 @@
                     <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
                     <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li> 
                     <li><a href="<%=request.getContextPath()%>/account" class="account">アカウント修正</a></li>
+                    <li><a href="<%=request.getContextPath()%>/mypage" class="mypage">マイページ</a></li>
                 </ul>
             </nav>
         </div>

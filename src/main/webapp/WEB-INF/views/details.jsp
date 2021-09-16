@@ -17,6 +17,7 @@
  <script src="resources/js/lightbox.js" /></script> 
 <script src="resources/js/hedder.js" /></script>
 <script src="resources/js/disabled.js" /></script>
+<script src="resources/js/getUserId.js"></script> <!-- session -->
 </head>
 <body class="wrapper">
 
@@ -34,6 +35,7 @@
                     <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
                     <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li> 
                     <li><a href="<%=request.getContextPath()%>/account" class="account">アカウント修正</a></li>
+                    <li><a href="<%=request.getContextPath()%>/mypage" class="mypage">マイページ</a></li>
                 </ul>
             </nav>
         </div>
@@ -52,6 +54,8 @@
                     </a>
                 </div>
                 <div id="status">${RentingStatus}</div>
+                <div id="status">この本の在庫は${bookDetailsInfo.stock}冊です。 </div>
+                <div id="status">貸し出し在庫数は${bookDetailsInfo.rentOkStock}冊です。 </div>
             </div>
             <div class="content_right">
                 <div>
@@ -81,15 +85,19 @@
             </div>
         </div>
         <div class="edtDelBookBtn_box">
-       <input type="hidden" id="RentingStatus" value="${RentingStatus}" >  
+        <!-- ここでhiddenでrentCountを受け取りそれが0か0以外かでdieabledを与える -->
+       <input type="hidden" id="rentCount" value="${bookDetailsInfo.rentOkStock}" >  
+       <input type="hidden" id="stockCount" value="${bookDetailsInfo.stock}"> 
             <form method="post" action="rentBook">
                 
                     <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook" >借りる</button>
+                    <input type="hidden" name="userId" class="get_userId" value="${userId}">
                 
             </form>
             <form method="post" action="returnBook">
               
                     <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_returnBook" >返却</button>
+                    <input type="hidden" name="userId" class="get_userId" value="${userId}">
           
             </form>
             <form method="post" action="editBook">
@@ -98,8 +106,10 @@
             <form method="post" action="deleteBook">
                 
                     <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_deleteBook" >削除</button>
+                    
              
             </form>
+            
         </div>
     </main>
 </body>

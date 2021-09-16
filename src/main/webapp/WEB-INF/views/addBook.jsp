@@ -23,11 +23,11 @@
 <script src="resources/js/thumbnail.js"></script>
     
 <script src="resources/js/addBtn.js"></script>
-
 <script src="resources/js/hedder.js" /></script>
 </head>
 <body class="wrapper">
-      <script type="text/javascript" src="hedder.js"></script> 
+      
+    <script type="text/javascript" src="hedder.js"></script>
     <header>
             
         <div class="left">
@@ -37,14 +37,16 @@
         </div>
             
         <div class="right">
-                   <div class="hamburger">
-                <span></span> <span></span> <span></span> 
+                  
+            <div class="hamburger">
+                <span></span> <span></span> <span></span>
             </div>
             <nav class="globalMenuSp">
                 <ul class=hambergermenu>
                     <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
-                    <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li> 
+                    <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li>
                     <li><a href="<%=request.getContextPath()%>/account" class="account">アカウント修正</a></li>
+                    <li><a href="<%=request.getContextPath()%>/mypage" class="mypage">マイページ</a></li>
                 </ul>
             </nav>
         </div>
@@ -117,11 +119,23 @@
                     <div>
                         <span>説明</span>
                         <c:if test="${!empty bookInfo}">
-                            <input type="text" id=addBookInput  name="description" value="${bookInfo.description}">
+                            <input type="text" id=addBookInput name="description" value="${bookInfo.description}">
                         </c:if>
                         <c:if test="${empty bookInfo}">
-                            <input type="text" id=addBookInput  name="description">
+                            <input type="text" id=addBookInput name="description">
                         </c:if>
+                    </div>
+                    <div>
+                        <span>カテゴリー（選択式）</span>
+                        <select name="category">
+                            <option value="1">小説</option>
+                            <option value="2">随筆</option>
+                            <option value="3">啓蒙</option>
+                            <option value="4">漫画</option>
+                            <option value="5">図鑑</option>
+                            <option value="6">芸術関係</option>
+                            <option value="7">その他</option>
+                        </select>
                     </div>
                     <input type="hidden" id="bookId" name="bookId" value="${bookInfo.bookId}">
                 </div>

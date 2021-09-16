@@ -37,7 +37,7 @@ public class BooksService {
 
         // TODO 取得したい情報を取得するようにSQLを修正
         List<BookInfo> getedBookList = jdbcTemplate.query(
-                "select bookId,title,publisher,publish_date,thumbnail_url,author from books order by title asc",
+                "select bookId,title,publisher,publish_date,thumbnail_url,author,rentStatus from books order by title asc",
                 new BookInfoRowMapper());
 
         return getedBookList;
@@ -68,7 +68,7 @@ public class BooksService {
      * @param bookInfo 書籍情報
      */
     public void registBook(BookDetailsInfo bookInfo) {
-        String sql = "INSERT INTO books (title, author,publisher,publish_date,thumbnail_name,thumbnail_url,reg_date,upd_date,isbn,description) VALUES ('"
+        String sql = "INSERT INTO books (title, author,publisher,publish_date,thumbnail_name,thumbnail_url,reg_date,upd_date,isbn,description,stock,rentOkStock,category) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
                 + bookInfo.getPublishDate() + "','"
                 + bookInfo.getThumbnailName() + "','"
@@ -76,7 +76,10 @@ public class BooksService {
                 + "sysdate(),"
                 + "sysdate(),'"
                 + bookInfo.getIsbn()+"','"
-                + bookInfo.getDescription() + "');";
+                + bookInfo.getDescription() + "',"
+                + 1 + ","
+                + 1 + ",'"
+                + bookInfo.getCategory() + "');";
         jdbcTemplate.update(sql);
         }
 
@@ -122,17 +125,6 @@ public class BooksService {
     }
 
     /**
-     * 書籍を借りる
-     * 
-     * @param bookId　書籍情報
-     */
-    public void rentBook(int bookId) {
-        String sql = "INSERT INTO rentBooks(bookId) VALUES ("
-                + bookId + ");";
-        jdbcTemplate.update(sql);
-    }
-
-    /**
      * 本が貸し出し中か調べる
      * @param bookId
      * @return　結果をリターンしてあげる
@@ -143,13 +135,42 @@ public class BooksService {
         return rentId;
     }
 
-    /**
-     * 書籍を返却する（MySQLからデータを消す）
-     * @param bookId
-     */
-    public void returnBook(int bookId) {
-        String sql = "DELETE FROM rentBooks WHERE bookId='" + bookId + "';";
+    public List<BookInfo> searchLikeBook(String searchText) {
+        List<BookInfo> searchedBook = jdbcTemplate.query(
+                "SELECT * FROM books where title LIKE '%" + searchText + "%';",
+                new BookInfoRowMapper());
+        return searchedBook;
+    }
+
+    public int searchSameBook(String title, String author) {
+        String sql = "SELECT COUNT(*)FROM books WHERE title='" + title + "' AND author='" + author + "';";
+        int SameBookCount = jdbcTemplate.queryForObject(sql, Integer.class);
+        return SameBookCount;
+    }
+
+    public int searchBookId(String title, String author) {
+        String sql = "SELECT bookId FROM books WHERE title='" + title + "' AND author='" + author + "';";
+        int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return bookId;
+    }
+
+    public int searchStock(int SameBookId) {
+        String sql = "SELECT stock FROM books WHERE bookId=" + SameBookId + ";";
+        int stockCount = jdbcTemplate.queryForObject(sql, Integer.class);
+        return stockCount;
+    }
+
+    public void stockIncrement(int stock, int SameBookId) {
+        String sql = "UPDATE books SET stock =" + stock + " ,rentOkStock=" + stock + " WHERE bookId=" + SameBookId
+                + ";";
         jdbcTemplate.update(sql);
+    }
+
+    public List<BookInfo> categorizeBook(String categoryText) {
+        List<BookInfo> Book = jdbcTemplate.query(
+                "SELECT * FROM books where category='" + categoryText + "';",
+                new BookInfoRowMapper());
+        return Book;
     }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.seattle.library.service.BooksService;
+import jp.co.seattle.library.service.RentBooksService;
 
 /**
  * 詳細表示コントローラー
@@ -23,6 +24,8 @@ public class DetailsController {
 
     @Autowired
     private BooksService booksService;
+    @Autowired
+    private RentBooksService rentBooksService;
 
     /**
      * 詳細画面に遷移する
@@ -43,17 +46,21 @@ public class DetailsController {
 
         //貸し出し可能かどうかを判断する処理
 
-        int rent = booksService.rentCheck(bookId);
-        if (rent == 0) {
-            model.addAttribute("RentingStatus", "貸し出し可");
-            //ボタンいじりたい
+        //        int rent = booksService.rentCheck(bookId);
+        //rentOkStock（貸し出し可能在庫）の数を取得
+        int rentCount = rentBooksService.searchRentStock(bookId);
 
-        } else {
+        if (rentCount == 0) {
             model.addAttribute("RentingStatus", "貸し出し中");
-            //ボタンいじりたい
+        } else {
+            model.addAttribute("RentingStatus", "貸し出し可");
 
         }
-        booksService.getBookInfo(bookId);
+
+        //stock（在庫）の確認
+        //        int stock = booksService.searchStock(bookId);
+        //        model.addAttribute("stockCount", stock);
+        //        model.addAttribute("rentCount", rentCount);
 
         return "details";
     }

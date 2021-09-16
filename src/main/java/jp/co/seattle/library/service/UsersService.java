@@ -82,4 +82,10 @@ public class UsersService {
 
     }
 
+    public int returnUserId(String email, String password) {
+        String sql = "select id from users where email='" + email + "' and password='" + password + "';";
+        int userId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return userId;
+    }
+
 }

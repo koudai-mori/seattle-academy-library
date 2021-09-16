@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
+import jp.co.seattle.library.service.RentBooksService;
 import jp.co.seattle.library.service.ThumbnailService;
 
 /**
@@ -28,6 +29,9 @@ public class AddBooksController {
 
     @Autowired
     private BooksService booksService;
+
+    @Autowired
+    private RentBooksService rentBooksService;
 
     @Autowired
     private ThumbnailService thumbnailService;
@@ -61,10 +65,28 @@ public class AddBooksController {
             @RequestParam("thumbnail") MultipartFile file,
             @RequestParam("isbn") String isbn,
             @RequestParam("description") String description,
+            @RequestParam("category") int categoryNum,
 
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
+        //RequestParamで受け取った番号をもとにカテゴリー名を付与する
+        String categoryText = null;
+        if (categoryNum == 1) {
+            categoryText = "小説";
+        } else if (categoryNum == 2) {
+            categoryText = "随筆";
+        } else if (categoryNum == 3) {
+            categoryText = "啓蒙";
+        } else if (categoryNum == 4) {
+            categoryText = "漫画";
+        } else if (categoryNum == 5) {
+            categoryText = "図鑑";
+        } else if (categoryNum == 6) {
+            categoryText = "芸術関係";
+        } else if (categoryNum == 7) {
+            categoryText = "その他";
+        }
         // パラメータで受け取った書籍情報をDtoに格納する。
         BookDetailsInfo bookInfo = new BookDetailsInfo();
         bookInfo.setTitle(title);
@@ -73,6 +95,7 @@ public class AddBooksController {
         bookInfo.setPublishDate(publishDate);
         bookInfo.setIsbn(isbn);
         bookInfo.setDescription(description);
+        bookInfo.setCategory(categoryText);
 
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
@@ -99,23 +122,21 @@ public class AddBooksController {
         if (title.isEmpty() || author.isEmpty() || publisher.isEmpty()) {
 
         }
-
-        // 書籍情報を新規登録する
+        // TODO 書籍情報を新規登録する
 
         //ヴァリデーションチェック
-        //後ここだけ
         boolean check = false;
         boolean isValidIsbn = isbn.matches("[0-9]{10}||[0-9]{13}");
         if (!isValidIsbn) {
             model.addAttribute("errorMsgIsbn", "ISBNの桁数または半角英数が正しくありません");
-            
+
         }
         //日付のチェック
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd");
             sdf.setLenient(false);
             sdf.parse(publishDate);
-           
+
         } catch (ParseException pe) {
             check = true;
             model.addAttribute("errorMsgDate", "出版日は半角英数のYYYYMMDD形式で入力してください");
@@ -123,19 +144,39 @@ public class AddBooksController {
         if (check) {
             return "addBook";
         }
-        booksService.registBook(bookInfo);
-        
-        
+
+        //同じ本があるかチェックする、存在した場合stockカラムにインクリメント、存在しないbooksテーブルにデータを追加
+        int SameBookCount = booksService.searchSameBook(title, author);
+        int stock = 1;
+        if (SameBookCount != 0) {
+            int bookId = booksService.searchBookId(title, author);
+            stock = booksService.searchStock(bookId);
+            stock += 1;
+            booksService.stockIncrement(stock, bookId);
+            //stock(在庫数)とrentOkStock(貸し出し可能在庫)をjspに送信してあげる
+            model.addAttribute("stockCount", stock);
+            model.addAttribute("rentCount", rentBooksService.searchRentStock(bookId));
+        } else if (SameBookCount == 0) {
+            booksService.registBook(bookInfo);
+
+        }
+
         model.addAttribute("resultMessage", "登録完了");
 
         // TODO 登録した書籍の詳細情報を表示するように実装
-        int bookDetailsInfo = booksService.latestID();
-        //↑IDもらったお
-        BookDetailsInfo details = booksService.getBookInfo(bookDetailsInfo);
-        
+        //最新のbookIdを取得（最後に登録された情報＝上記で登録した情報となる）
+        int AddBookId = booksService.latestID();
+        //stock(在庫数)とrentOkStock(貸し出し可能在庫)をjspに送信してあげる
+        model.addAttribute("stockCount", stock);
+        model.addAttribute("rentCount", rentBooksService.searchRentStock(AddBookId));
+        //上記で取得した情報を元にbooksテーブルのrentStatusに「貸し出し可」を挿入
+        rentBooksService.insertOkRentStatus(AddBookId);
+
+        BookDetailsInfo details = booksService.getBookInfo(AddBookId);
+
         model.addAttribute("bookDetailsInfo", details);
-        model.addAttribute("RentingStatus", "貸し出し可");
-                
+        //model.addAttribute("RentingStatus", "貸し出し可");
+
         //Bookdetaiklsinfoから取得して出力？
         //detail.jspを使うのでは
         //  詳細画面に遷移する

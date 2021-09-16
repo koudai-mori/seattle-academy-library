@@ -30,6 +30,7 @@ public class DeleteBookController {
      *
      * @param locale ロケール情報
      * @param bookId 書籍ID
+     * @param userId ユーザーID
      * @param model モデル情報
      * @return 遷移先画面名
      */
@@ -38,6 +39,7 @@ public class DeleteBookController {
     public String deleteBook(
             Locale locale,
             @RequestParam("bookId") Integer bookId,
+            //            @RequestParam("userId") int userId,
             Model model) {
         logger.info("Welcome delete! The client locale is {}.", locale);
 

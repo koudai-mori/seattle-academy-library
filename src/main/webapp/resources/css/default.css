@@ -64,9 +64,20 @@ input[type=email]{
     font-family: 'Mate SC', serif;
     
 }
+ /*  検索用のインプットタグのデザイン */
+#search{
+	font-size:100%;
+    padding: 5px 0;
+    width: 30%;
+    text-indent: 1em;
+    outline: none;
+    color:white;
+    font-family: 'Mate SC', serif;
+}
 #email,#password,#passwordForCheck{
 	color:black
 }
+
 /* 基本デザイン：テキストボックス系(フォーカス時) */
 input[type=text]:focus,
 input[type=password]:focus {
@@ -77,6 +88,7 @@ input[type=submit],
 input[type=button] {
     font-size:110%;
     padding: 5px 0;
+    margin:5;
     outline: none;
     text-shadow:0px 0px 3px #707070;
     border :solid 1px #707070;
@@ -336,7 +348,14 @@ header > .right >nav.globalMenuSp ul li a {
   text-decoration :none;
   font-family: 'Mate SC', serif;
 }
-
+/* formタグ用のハンバーガー*/
+header > .right >nav.globalMenuSp ul li form {
+  display: block;
+  color: #fff;
+  padding: 1em 0;
+  text-decoration :none;
+  font-family: 'Mate SC', serif;
+}
 /* このクラスを、jQueryで付与・削除する */
 header > .right >nav.globalMenuSp.active {
   opacity: 100;
@@ -391,6 +410,7 @@ h1 {
   color:white;
   font-family: 'Mate SC', serif;
 }
+
 .error_msg {
     color: red;
     font-weight: bold;

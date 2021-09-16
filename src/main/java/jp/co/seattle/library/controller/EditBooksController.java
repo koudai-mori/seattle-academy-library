@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
+import jp.co.seattle.library.service.RentBooksService;
 import jp.co.seattle.library.service.ThumbnailService;
 
 /**
@@ -31,6 +32,9 @@ public class EditBooksController {
 
     @Autowired
     private ThumbnailService thumbnailService;
+
+    @Autowired
+    private RentBooksService rentBooksService;
 
     /**
      * 編集画面に遷移する
@@ -151,7 +155,12 @@ public class EditBooksController {
         //↑IDもらったお
         BookDetailsInfo newBookDetailsInfo = booksService.getBookInfo(bookId);
         model.addAttribute("bookDetailsInfo", newBookDetailsInfo);
-        model.addAttribute("RentingStatus", "貸し出し可");
+        int rentCount = rentBooksService.searchRentStock(bookId);
+        if (rentCount == 0) {
+            model.addAttribute("RentingStatus", "貸し出し中");
+        } else {
+            model.addAttribute("RentingStatus", "貸し出し可");
+        }
         
         return "details";
     }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
+import jp.co.seattle.library.service.RentBooksService;
 
 /**
  * 返却コントローラー
@@ -24,6 +25,8 @@ public class ReturnBookControlller {
 
     @Autowired
     private BooksService booksService;
+    @Autowired
+    private RentBooksService rentBooksService;
 
     /**
      * 
@@ -35,15 +38,36 @@ public class ReturnBookControlller {
     @RequestMapping(value = "/returnBook", method = RequestMethod.POST)
     public String rentBook(Locale locale,
             @RequestParam("bookId") int bookId,
+            @RequestParam("userId") int userId,
             Model model) {
         // デバッグ用ログ
         logger.info("Welcome ReturnBookControler.java! The client locale is {}.", locale);
-        //rentメソッド使う
-        booksService.returnBook(bookId);
+        //returnメソッド使う(rentテーブルからデータをremove)
+        //rentBooksService.returnBook(bookId, userId);(rentBooksテーブルを使用しない)
+
+        //bookIdを元にbooksテーブルからrentOkStockカラムのデータを取得
+        int rentCount = rentBooksService.searchRentStock(bookId);
+
+        //rentCountから1冊分インリメントし、booksテーブルのrentOkStockにセットする
+        rentCount += 1;
+        rentBooksService.insertRentStock(rentCount, bookId);
+        //insertReturntLogを使う（rentLogテーブルに返した日付を追加）
+        rentBooksService.insertReturnLog(bookId, userId);
+
+        if (rentCount == 0) {
+            model.addAttribute("RentingStatus", "貸し出し中");
+            //booksテーブルのrentStatusに「貸し出し不可」を挿入
+            rentBooksService.insertNgRentStatus(bookId);
+        } else {
+            model.addAttribute("RentingStatus", "貸し出し可");
+            //booksテーブルのrentStatusに「貸し出し可」を挿入(デフォルトで貸し出し可なため省いてもOK)
+            rentBooksService.insertOkRentStatus(bookId);
+        }
 
         BookDetailsInfo newBookDetailsInfo = booksService.getBookInfo(bookId);
         model.addAttribute("bookDetailsInfo", newBookDetailsInfo);
-        model.addAttribute("RentingStatus", "貸し出し可");
+        //        model.addAttribute("stockCount", booksService.searchStock(bookId));
+        //        model.addAttribute("rentCount", rentCount);
 
         return "details";
     }

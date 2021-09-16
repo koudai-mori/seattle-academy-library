@@ -1,10 +1,14 @@
 $(function() {
-	var status=$('#RentingStatus').val();
-	
-	if (status==='貸し出し可') {
-           $('.btn_returnBook').prop('disabled', true);
-        } else if(status==='貸し出し中') {
-			$('.btn_rentBook').prop('disabled',true);
-			$('.btn_deleteBook').prop('disabled',true);
-        }
+	var count = $('#rentCount').val();
+	var stock = $('#stockCount').val();
+
+	if (count === 0) {
+		$('.btn_rentBook').prop('disabled', true);
+		//$('.btn_deleteBook').prop('disabled', true);
+
+	} 
+	if (count === stock) {
+		$('.btn_returnBook').prop('disabled', true);
+	}
+
 });
